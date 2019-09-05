@@ -1,0 +1,16 @@
+{
+  "name": "mixtape",
+  "version": "1.0.0",
+  "description": "Mixtape killer app",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_PATH=. && mocha ./test/**/*.js",
+    "start": "node ./app/index.js ./data/mixtape-data.json changes.json output-file.json"
+  },
+  "author": "George Ivanov",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0"
+  }
+}

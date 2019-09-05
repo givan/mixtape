@@ -1,0 +1,42 @@
+{
+  "operations" : [
+    { 
+      "id" : "1",
+      "type": "createNewPlaylist",
+      "input" : {
+        "playlist" : {
+          "id" : "777",
+          "user_id" : "2",
+          "song_ids" : [
+            "8",
+            "32"
+          ]
+        }
+      }, 
+      "config" : {
+        "output": "$playlistId1"
+      }
+    },
+    { 
+      "id" : "2",
+      "type": "addSongToPlaylist",
+      "input" : {
+        "songId" : "1",
+        "playlistId": "777"
+      }, 
+      "config" : {
+        "output": "result"
+      }
+    },
+    { 
+      "id" : "3",
+      "type": "removePlaylist",
+      "input" : {
+        "playlistId": "777"
+      }, 
+      "config" : {
+        "output": "result"
+      }
+    }
+  ]
+}
