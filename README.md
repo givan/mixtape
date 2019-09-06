@@ -92,7 +92,9 @@ Another improvement will be for the AddNewPlaylistOperation class to auto genera
 Currently the Mixtape class reads synchronously the file contents (for simplicity). This will be a memory and performance concern if the input mixtape.json file gets pretty large. One way to scale our app is to store the data in a persistant storage (MongoDB, Redis, Postgres) and scale the data layer. 
 
 ## Changes to the app to support large mixtape and changes files
-As mentioned above, there two ideas to purpuse in this regard:
+As mentioned above, there two ideas to pursue in this regard:
+
 1/ store the mixtape contents into a persistant storage (SQL or NoSQL) - such as MongoDB, Postgres, MySQL, etc. These can be sharded and scalled horizontally with the increase of mixtape data.
-2/ The array of changes can be analyzed and paralleized if there are no dependencies between them. This will allow to break down a changes file into indepdent set of operatoins that can run in parallel (since they're working on non overlapping resources);
+
+2/ The array of changes can be analyzed and paralleized if there are no dependencies between them. This will allow to break down a changes file into indepdent set of operations that can run in parallel (since they're working on non overlapping resources); 
  
