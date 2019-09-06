@@ -7,9 +7,9 @@ describe('Playlist class', () => {
 
     const mixtapeData = require("../../data/mixtape-data.json");
 
-    const playlists = Playlist.createFrom(mixtapeData.playlists);
+    const playlist = Playlist.createFrom(mixtapeData.playlists[0]);
     
-    expect(playlists).to.be.an.instanceOf(Array).with.length(3);
-    expect(playlists[0]).to.be.an.instanceOf(Playlist);
+    expect(playlist).to.not.be.null;
+    expect(playlist).to.be.an.instanceOf(Playlist);
   });
 });

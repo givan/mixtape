@@ -7,22 +7,15 @@
           "id" : "777",
           "user_id" : "2",
           "song_ids" : [
-            "8",
-            "32"
+            "8"
           ]
         }
-      } 
+      }
     },
     { 
       "type": "addSongToPlaylist",
       "input" : {
         "song_id" : "1",
-        "playlist_id": "777"
-      }
-    },
-    { 
-      "type": "deletePlaylist",
-      "input" : {
         "playlist_id": "777"
       }
     }

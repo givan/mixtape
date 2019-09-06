@@ -28,10 +28,14 @@ class Mixtape {
       this.songs = Song.createFrom(this._mixtapeData.songs);
     }
     
-    if (this._mixtapeData.playlists !== undefined) {
-      // TODO: since node is single threaded not good to put a lot of CPU intestive work 
-      // consider doing this in a async way
-      this.playlists = Playlist.createFrom(this._mixtapeData.playlists);
+    if (this._mixtapeData.playlists !== undefined && Array.isArray(this._mixtapeData.playlists)) {
+      const playlistData = this._mixtapeData.playlists;
+      for(let i = 0; i < playlistData.length; i++) {
+        const playlist = Playlist.createFrom(playlistData[i]);
+        if (playlist !== null) {
+          this.playlists.push(playlist);
+        }  
+      }
     }
     
     return true;

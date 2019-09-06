@@ -2,6 +2,33 @@ const Mixtape = require("../models/Mixtape");
 const Playlist = require("../models/Playlist");
 
 class DeletePlaylistOperation {
+  static createFrom(operationData, mixtape) {
+    /* The schema from the changes.json for this operation:
+    { 
+      "type": "deletePlaylist",
+      "input" : {
+        "playlistId": "777"
+      }, 
+      "config" : {
+        "output": "result"
+      }
+    }
+    */
+
+    let op = null;
+
+    if (operationData !== undefined &&
+      operationData.input !== undefined &&
+      operationData.input.playlist_id !== undefined) {
+      const playlistId = operationData.input.playlist_id;
+
+      const playlist = new Playlist(playlistId);
+      op = new DeletePlaylistOperation(playlist, mixtape);
+    }
+
+    return op;
+  }
+
   constructor(playlist, mixtape) {
     if (playlist == undefined || !(playlist instanceof Playlist))
       throw new Error("playlist must be a valid Playlist object");

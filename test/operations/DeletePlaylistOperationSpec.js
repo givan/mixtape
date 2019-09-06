@@ -57,4 +57,17 @@ describe('DeletePlaylistOperation class', () => {
     });
   });
 
+  it('will parse op data from changes.json and create a new op', () => {
+    let mixtape = new Mixtape();
+    mixtape.loadFrom(require("path").resolve("./data/mixtape-data.json"));
+
+    const changesJsonFile = require("path").resolve("./data/changes.json");
+    const changesData = require(changesJsonFile);
+    const deletePlaylistData = changesData.operations[2];
+    expect(deletePlaylistData.type).to.be.equal("deletePlaylist");
+    
+    const op = DeletePlaylistOperation.createFrom(deletePlaylistData, mixtape);
+    expect(op).to.not.be.null;
+    expect(op).to.be.an.instanceOf(DeletePlaylistOperation);
+  })
 });

@@ -1,0 +1,19 @@
+{
+  "operations" : [
+    { 
+      "type": "createNewPlaylist",
+      "input" : {
+        "playlist" : {
+          "id" : "777",
+          "user_id" : "2",
+          "song_ids" : [
+            "8"
+          ]
+        }
+      }, 
+      "config" : {
+        "output": "$playlistId1"
+      }
+    }
+  ]
+}

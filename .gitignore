@@ -63,4 +63,4 @@ typings/
 # VS code folder
 .vscode/
 
-data/output-*.json
+data/output*.json

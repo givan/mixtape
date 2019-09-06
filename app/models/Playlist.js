@@ -1,19 +1,19 @@
 class Playlist {
   static createFrom(playlistData) {
-    let playlists = new Array();
+    let playlist = null;
 
-    if (Array.isArray(playlistData)) {
-      for(let i = 0; i < playlistData.length; i++) {
-        const newPlaylist = new Playlist(playlistData[i].id, playlistData[i].user_id, playlistData[i].song_ids);
-        playlists.push(newPlaylist);
-      }
+    if (playlistData.id !== undefined &&
+      playlistData.user_id !== undefined &&
+      playlistData.song_ids !== undefined &&
+      Array.isArray(playlistData.song_ids) &&
+      playlistData.song_ids.length > 0) {
+      playlist = new Playlist(playlistData.id, playlistData.user_id, playlistData.song_ids);
     }
-    
-    return playlists;
+
+    return playlist;
   }
 
   constructor(id, user_id, song_ids) {
-    // TODO: add validation
     this.id = id;
     this.user_id = user_id;
     this.song_ids = song_ids;

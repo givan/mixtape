@@ -2,6 +2,40 @@ const Playlist = require("../models/Playlist");
 const Mixtape = require("../models/Mixtape");
 
 class AddNewPlaylistOperation {
+  static createFrom(operationData, mixtape) {
+    /* The schema from the changes.json for this operation:
+    { 
+      "type": "createNewPlaylist",
+      "input" : {
+        "playlist" : {
+          "id" : "777",
+          "user_id" : "2",
+          "song_ids" : [
+            "8",
+            "32"
+          ]
+        }
+      }, 
+      "config" : {
+        "output": "$playlistId1"
+      }
+    }
+    */
+
+    let op = null;
+
+    if (operationData !== undefined && operationData.input !== undefined && operationData.input.playlist !== undefined) {
+      const playlistData = operationData.input.playlist;
+
+      const playlist = Playlist.createFrom(playlistData);
+      if (playlist != null) {
+        op = new AddNewPlaylistOperation(playlist, mixtape);
+      }
+    }
+
+    return op;
+  }
+
   constructor(playlist, mixtape) {
     if (playlist === undefined || !(playlist instanceof Playlist))
       throw new Error("AddNewPlaylistOperation requires a valid Playlist object");
@@ -18,7 +52,6 @@ class AddNewPlaylistOperation {
     // node is not meant for heavy CPU bound ops
     setTimeout(() => {
       // Add a new playlist for an existing user; the playlist should contain at least one existing song.
-
       let playlistAdded = false;
 
       let containsPlaylist = false;

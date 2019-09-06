@@ -83,4 +83,18 @@ describe('AddSongToPlaylistOperation class', () => {
       done();
     });
   });
+
+  it('wil parse op data from changes.json and construct a new instance', ()=> {
+    let mixtape = new Mixtape();
+    mixtape.loadFrom(require("path").resolve("./data/mixtape-data.json"));
+
+    const changesJsonFile = require("path").resolve("./data/changes.json");
+    const changesData = require(changesJsonFile);
+    const addSongToPlaylistData = changesData.operations[1];
+    expect(addSongToPlaylistData.type).to.be.equal("addSongToPlaylist");
+    
+    const op = AddSongToPlaylistOperation.createFrom(addSongToPlaylistData, mixtape);
+    expect(op).to.not.be.null;
+    expect(op).to.be.an.instanceOf(AddSongToPlaylistOperation);
+  });
 });

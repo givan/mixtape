@@ -11,13 +11,6 @@
             "32"
           ]
         }
-      } 
-    },
-    { 
-      "type": "addSongToPlaylist",
-      "input" : {
-        "song_id" : "1",
-        "playlist_id": "777"
       }
     },
     { 
