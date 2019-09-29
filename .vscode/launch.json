@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "Launch Program",
       "program": "${workspaceFolder}\\app\\index.js",
-      "args": ["./data/mixtape-data.json", "changes.json", "output-file.json"]
+      "args": ["./data/mixtape-data.json", "./data/changes.json", "./data/output-file.json"]
     }
   ]
 }

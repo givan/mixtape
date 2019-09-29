@@ -52,26 +52,15 @@ class AddSongToPlaylistOperation {
     // instead of doing lookups in memory (not what node is meant for)
     setTimeout(() => {
       // Add an existing song to an existing playlist.
-      let foundSong = false;
       const mixtapeSongs = this.mixtape.songs;
-      for (let i = 0; i < mixtapeSongs.length; i++) {
-        if (mixtapeSongs[i].id === this.song_id) {
-          foundSong = true;
-          break;
-        }
-      }
-  
+
       let foundPlaylist = null;
+
+      const foundSong = (mixtapeSongs.find((song) => song.id === this.song_id));
       if (foundSong) {
-  
         const mixtapePlaylists = this.mixtape.playlists;
-        for (let i = 0; i < mixtapePlaylists.length; i++) {
-          if (mixtapePlaylists[i].id === this.playlist_id) {
-            foundPlaylist = mixtapePlaylists[i];
-            break;
-          }
-        }
-  
+        
+        foundPlaylist = mixtapePlaylists.find((playlist) => playlist.id === this.playlist_id);
         if (foundPlaylist != null) {
           foundPlaylist.song_ids.push(this.song_id);
         }

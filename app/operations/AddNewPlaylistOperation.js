@@ -54,38 +54,20 @@ class AddNewPlaylistOperation {
       // Add a new playlist for an existing user; the playlist should contain at least one existing song.
       let playlistAdded = false;
 
-      let containsPlaylist = false;
       const mixtapePlaylists = this._mixtape.playlists;
-      for (let i = 0; i < mixtapePlaylists.length; i++) {
-        if (mixtapePlaylists[i].id === this._playlist.id) {
-          containsPlaylist = true;
-          break;
-        }
-      }
-
+      const containsPlaylist = (mixtapePlaylists.find((playlist) => playlist.id === this._playlist.id));
       if (!containsPlaylist) {
-        let containsUser = false;
         const mixtapeUsers = this._mixtape.users;
-        for (let i = 0; i < mixtapeUsers.length; i++) {
-          if (mixtapeUsers[i].id === this._playlist.user_id) {
-            containsUser = true;
-            break;
-          }
-        }
 
+        const containsUser = (mixtapeUsers.find((user) => user.id === this._playlist.user_id));
         if (containsUser) {
-          let hasExistingSong = false;
 
           const mixtapeSongs = this._mixtape.songs;
           const playlistSongIds = this._playlist.song_ids;
-          for (let j = 0; j < playlistSongIds.length; j++) {
-            for (let i = 0; i < mixtapeSongs.length; i++) {
-              if (playlistSongIds[j] === mixtapeSongs[i].id) {
-                hasExistingSong = true;
-                break;
-              }
-            }
-          }
+
+          const hasExistingSong = (playlistSongIds.find((songId) => {
+              return mixtapeSongs.find((mixtapeSong) => mixtapeSong.id === songId);
+          }));
 
           if (hasExistingSong) {
             this._mixtape.playlists.push(this._playlist); // we don't generate the ID, we assume the ID exists on this new 
