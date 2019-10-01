@@ -26,8 +26,7 @@ class MixtapeChanges {
 
     if (fs.existsSync(changesFilePath)) {
       fs.readFile(changesFilePath, (err, data) => {
-
-        if (data !== undefined) {
+        if (data) {
           try {
             let changesData = JSON.parse(data);
 
@@ -79,19 +78,19 @@ class MixtapeChanges {
   execute(cb) {
     if (this._changes.length > 0) {
       // build an array of all the functions that will execute each operatoin one by one 
-      // call async with waterfall model since the operations may have interdepencies among them
+      // call async with serial model since the operations may have interdepencies among them
       // we want to save the file only once and not after every operation (to save on disk writes and reads)
       // further, all of all op execute() methods are not returning errors even if there failures;
-      // that's on purpose to be able to not stop the async.waterfall() - we want to execute as many ops as we think are needed
+      // that's on purpose to be able to not stop the async.series() - we want to execute as many ops as we think are needed
       // future extension here will be have a way to inject state from one operatoin to another - hence I left the "result" element
       // in the changes.json for each operation
       let asyncChangesFuncs = [];
       for (let i = 0; i < this._changes.length; i++) {
 
         const mixtapeOperation = this._changes[i];
-        
+
         const executeMixtapeOperation = (mixtapeCallback) => {
-          mixtapeOperation.execute((err, result) => {          
+          mixtapeOperation.execute((err, result) => {
             if (err) {
               mixtapeCallback(null, err);
               return;
@@ -121,16 +120,16 @@ class MixtapeChanges {
         // this could be future enhancement if there is business need for it
         let isCompletedSuccessfully = false;
         if (Array.isArray(results)) {
-          for(let i = 0; i < results.length; i++) {
+          for (let i = 0; i < results.length; i++) {
             if (results[i]) {
               isCompletedSuccessfully = true;
               break;
             }
-          } 
+          }
         } else {
           isCompletedSuccessfully = results; // this is the case with 1 op where results is a single element
         }
-        
+
         cb(null, isCompletedSuccessfully);
       });
     } else {
